@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BadGuy : MonoBehaviour {
 
+    //This class handles individual bad guys
+
     public GameObject prefab;
     int baseHealth = 10;
     public float health = 10;

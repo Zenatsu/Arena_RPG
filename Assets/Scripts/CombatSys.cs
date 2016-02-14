@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class CombatSys : MonoBehaviour {
 
+    //this class handles the combat system
+
     public GameObject prefab;
     List<GameObject> _enemyList;
 

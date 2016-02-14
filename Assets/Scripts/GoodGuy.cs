@@ -19,4 +19,12 @@ public class GoodGuy : MonoBehaviour {
     {
         health += regen * Time.deltaTime;
     }
+
+    void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            print("CLICK!");
+        }
+    }
 }

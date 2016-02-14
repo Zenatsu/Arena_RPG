@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
 
+    //this class handles scene changing
+
     public void ExitShop()
     {
         SceneManager.LoadScene("MainScene");

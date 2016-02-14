@@ -4,6 +4,9 @@ using System.Collections;
 public class MouseClick : MonoBehaviour
 {
 
+    //this class is used as a learning device
+    //DELETE LATER
+
     // Use this for initialization
     void Start()
     {
@@ -18,7 +21,7 @@ public class MouseClick : MonoBehaviour
 
     public void OnMouseDown()
     {
-        Destroy(this);
+        print("CLICK!");
 
     }
 
