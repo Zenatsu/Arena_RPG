@@ -8,12 +8,12 @@ public class MenuSystem : MonoBehaviour {
     public GameObject radialMenuFade;
     public Animator RadialMenu;
     bool clicked = false;
-
+    public GameObject targetScript;
+    public TargetSelection target;
 
     public void RadialMenuCall()
     {
         clicked = !clicked;
-        print("Clciked is: " + clicked);
         if (clicked == true)
         {
             //enable the animator component
@@ -29,13 +29,13 @@ public class MenuSystem : MonoBehaviour {
             //play the Slidein animation
             RadialMenu.Play("RadialMenuFadeOut");
         }
-        
+        target.targeting = false;
     }
 
 	// Use this for initialization
 	void Start ()
     {
-        
+        target = targetScript.GetComponent<TargetSelection>();
         //get the animator component
         RadialMenu = RadialMenu.GetComponent<Animator>();
         //disable it on start to stop it from playing the default animation

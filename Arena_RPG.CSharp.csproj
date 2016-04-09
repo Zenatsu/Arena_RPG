@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\GoodGuy.cs" />
     <Compile Include="Assets\Scripts\MenuSystem.cs" />
     <Compile Include="Assets\Scripts\MouseClick.cs" />
+    <Compile Include="Assets\Scripts\TargetSelection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

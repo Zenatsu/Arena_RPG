@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class BadGuy : MonoBehaviour {
@@ -8,7 +11,6 @@ public class BadGuy : MonoBehaviour {
     public GameObject prefab;
     int baseHealth = 10;
     public float health = 10;
-
     float regen = 1;
 
 
@@ -22,7 +24,8 @@ public class BadGuy : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
+
+// Update is called once per frame
     void Update()
     {
         if (health < 10)
