@@ -3,8 +3,7 @@ using System.Collections;
 
 public class GoodGuy : MonoBehaviour {
 
-    float health = 10;
-    float regen = 1;
+    public int attk=1;
 
     // Use this for initialization
     void Start()
@@ -12,10 +11,12 @@ public class GoodGuy : MonoBehaviour {
 
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
-        health += regen * Time.deltaTime;
+        
     }
 
 }

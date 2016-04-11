@@ -10,7 +10,7 @@ public class ClassSystem : MonoBehaviour {
     int stam;  //modifies health pool
     int endur; //modifies ability pool
     int wisd;  //modifies spell power
-    int dext;  //modifies turn speed
+    int dext;  //modifies dodge rate
 
     int health; //defines healh points
     int mana; //defines mana points

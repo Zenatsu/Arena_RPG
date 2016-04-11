@@ -9,11 +9,9 @@ public class BadGuy : MonoBehaviour {
     //This class handles individual bad guys
 
     public GameObject prefab;
-    int baseHealth = 10;
-    public float health = 10;
-    float regen = 1;
+    TargetSelection targetScript; 
 
-
+    public int hp;
 
     // Use this for initialization
     void Start()
@@ -28,9 +26,10 @@ public class BadGuy : MonoBehaviour {
 // Update is called once per frame
     void Update()
     {
-        if (health < 10)
-            health += regen * Time.deltaTime;
-        if (health > baseHealth)
-            health = baseHealth;
+        if (hp < 1)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

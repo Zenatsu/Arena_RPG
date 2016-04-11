@@ -45,14 +45,23 @@ public class CombatSys : MonoBehaviour {
             }
         }
 
-       // _enemyList.Add();
+       //_enemyList.Add();
     }
 
     public void StartCombat()
     {
-        CombatStart();       
+        SpawnSystem();       
         print("Combat Started");
         
+    }
+
+    public void AttackSystem(GameObject attacker, GameObject defender)
+    {
+        GoodGuy attackerScript = attacker.GetComponent<GoodGuy>();
+        BadGuy defenderScript = defender.GetComponent<BadGuy>();
+
+        defenderScript.hp -= attackerScript.attk;
+
     }
 
     void OnGUI()
@@ -61,7 +70,7 @@ public class CombatSys : MonoBehaviour {
     }
 
     //Where the base combat system runs
-    public void CombatStart()
+    public void SpawnSystem()
     {
         fightButton.GetComponent<Button>().interactable = false;
         fightButton.GetComponent<Button>().image.enabled = false;
@@ -76,20 +85,26 @@ public class CombatSys : MonoBehaviour {
             case 1:
                 badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
                 badGuy.name = "BadGuy";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 break;
             case 2:
                 badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
                 badGuy.name = "BadGuy";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 badGuy = (GameObject)Instantiate(badGuy, bPos2, Quaternion.identity);
                 badGuy.name = "BadGuy2";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 break;
             case 3:
                 badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
                 badGuy.name = "BadGuy";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 badGuy = (GameObject)Instantiate(badGuy, bPos2, Quaternion.identity);
                 badGuy.name = "BadGuy2";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 badGuy = (GameObject)Instantiate(badGuy, bPos3, Quaternion.identity);
                 badGuy.name = "BadGuy3";
+                badGuy.GetComponent<BadGuy>().hp = 10;
                 break;
         }
 
