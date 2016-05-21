@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CombatSys : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class CombatSys : MonoBehaviour {
 
     public GameObject badGuy;
     public GameObject goodGuy;
+    GoodGuy player;
+    BadGuy enemy;
     public Transform fightButton;
     List<GameObject> _enemyList;
 
@@ -28,86 +31,38 @@ public class CombatSys : MonoBehaviour {
     void start ()
     {
         _enemyList = new List<GameObject>();
-        
-
+      
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            print(_enemyList);
-            print("Pressed 1!");
-            foreach (GameObject enemy in _enemyList)
-            {
-                print(enemy.tag);
-            }
-        }
-
-       //_enemyList.Add();
+        player = goodGuy.GetComponent<GoodGuy>();
+        enemy = badGuy.GetComponent<BadGuy>();
+                    
     }
 
-    public void StartCombat()
+    public void CombatTimer()
     {
-        SpawnSystem();       
-        print("Combat Started");
-        
+        player = goodGuy.GetComponent<GoodGuy>();
+
     }
 
+    //recieves game object information from TargetSelection script and handles damage.
     public void AttackSystem(GameObject attacker, GameObject defender)
     {
         GoodGuy attackerScript = attacker.GetComponent<GoodGuy>();
         BadGuy defenderScript = defender.GetComponent<BadGuy>();
 
-        defenderScript.hp -= attackerScript.attk;
-
-    }
-
-    void OnGUI()
-    {
+        defenderScript.currentHP -= attackerScript.attk;
         
     }
 
-    //Where the base combat system runs
-    public void SpawnSystem()
+    public void AnimationSystem()
     {
-        fightButton.GetComponent<Button>().interactable = false;
-        fightButton.GetComponent<Button>().image.enabled = false;
-        fightButton.GetComponentInChildren<Text>().enabled = false;
-        casePos = Random.Range(1, 4);
-        print("Case: " + casePos);
-
-        goodGuy = (GameObject)Instantiate(goodGuy, gPos1, Quaternion.identity);
+        GoodGuy playerAniamtion = GameObject.FindGameObjectWithTag("Player").GetComponent<GoodGuy>();
+        playerAniamtion.AttackAnimation();
         
-        switch(casePos)
-        {
-            case 1:
-                badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
-                badGuy.name = "BadGuy";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                break;
-            case 2:
-                badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
-                badGuy.name = "BadGuy";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                badGuy = (GameObject)Instantiate(badGuy, bPos2, Quaternion.identity);
-                badGuy.name = "BadGuy2";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                break;
-            case 3:
-                badGuy = (GameObject)Instantiate(badGuy, bPos1, Quaternion.identity);
-                badGuy.name = "BadGuy";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                badGuy = (GameObject)Instantiate(badGuy, bPos2, Quaternion.identity);
-                badGuy.name = "BadGuy2";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                badGuy = (GameObject)Instantiate(badGuy, bPos3, Quaternion.identity);
-                badGuy.name = "BadGuy3";
-                badGuy.GetComponent<BadGuy>().hp = 10;
-                break;
-        }
-
     }
 
 }

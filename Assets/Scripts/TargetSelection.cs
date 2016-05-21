@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
+using System.Collections;
 
 public class TargetSelection : MonoBehaviour {
 
@@ -10,9 +9,7 @@ public class TargetSelection : MonoBehaviour {
     public bool targeting = false;
     bool targeted = false;
 
-    //int clickCount;
-    bool doubleClick = false;
-    
+    public BattleStatePattern battle;
 
     // Use this for initialization
     void Start ()
@@ -64,7 +61,7 @@ public class TargetSelection : MonoBehaviour {
     {
         if (selectedTarget != null)
             (selectedTarget.GetComponent("Halo") as Behaviour).enabled = true;
-;
+                   
     }
 
 
@@ -72,9 +69,14 @@ public class TargetSelection : MonoBehaviour {
     {
         if (selectedTarget != null)
             (selectedTarget.GetComponent("Halo") as Behaviour).enabled = false;
-
         selectedTarget = null;
-        doubleClick = false;
+
+    }
+
+    IEnumerator WaitForAnim()
+    {
+        yield return new WaitForSeconds(2f);
+        battle.hasAttacked = true;
     }
 
     public void ConfirmTarget()
@@ -83,40 +85,49 @@ public class TargetSelection : MonoBehaviour {
         GameObject script = GameObject.Find("ScriptManager");
         CombatSys combatSys = script.GetComponent<CombatSys>();
 
-        /*if (clickCount >= 2) //leaving this here if/when I want to utilize this
-        {
-            doubleClick = true;
-            clickCount =0;
-        }*/
-
         if (targeted && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
-            
-            
+            //access attack system in CombatSys script, and send game object information
             combatSys.AttackSystem(player, selectedTarget.gameObject);
 
             print("Target Confirmed, commense damage dealing on target " + selectedTarget + "!");
+
+            //switch targeting and targetd off after attack
+            targeted = false;
+            targeting = false;
+            battle = GameObject.Find("ScriptManager").GetComponent<BattleStatePattern>();
+            player.GetComponent<GoodGuy>().AttackAnimation();
+            StartCoroutine(WaitForAnim());
+            battle.playerTurn = false;
+            
+
         }
             
             
     }
 
-    public void OnClick()
+    public void OnAttackClick()
     {
         targeting = !targeting; //Bool toggle to set if targeting system is active
-        //clickCount = 0;
-        
+               
+    }
+
+    public void OnAbilityClick()
+    {
+        targeting = !targeting; //Bool toggle to set if targeting system is active
+
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
+
         //Tab Switching
         if (targeting && Input.GetKeyDown(KeyCode.Tab))
         {
             TargetEnemy();
             print(selectedTarget);
-            //clickCount = 0;
+
         }
 
         if (!targeting)
@@ -127,18 +138,19 @@ public class TargetSelection : MonoBehaviour {
         {
             //setting up raycast
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D[] hits; 
+            RaycastHit2D[] hits;
             hits = Physics2D.RaycastAll(mousePos, Vector3.zero);//cast a ray from mouse pointer
             bool gotTarget = false;
 
-            foreach(RaycastHit2D hit in hits)//when something is hit
-            { 
+            foreach (RaycastHit2D hit in hits)//when something is hit
+            {
                 DeselectTarget();
                 selectedTarget = hit.transform;
                 SelectTarget();
                 gotTarget = true;
                 targeted = true;
-                //clickCount ++;
+
+
             }
 
             if (!gotTarget) //if nothing was clicked deselect
@@ -147,10 +159,10 @@ public class TargetSelection : MonoBehaviour {
                 DeselectTarget();
                 targeted = false;
             }
-            
+
         }
-        
-        if(targeted)
+
+        if (targeted)
             ConfirmTarget();
     }
 }
