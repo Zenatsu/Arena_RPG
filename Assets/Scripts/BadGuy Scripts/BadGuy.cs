@@ -13,12 +13,16 @@ public class BadGuy : MonoBehaviour {
     public int currentHP;
     public int attk;
     public int speed;
-
+    public bool finishedFlashing;
     [HideInInspector]
     public Slider maxHPBar;
-
+    public BattleStatePattern battle;
 
     public bool badHasAttacked;
+
+    public Animation badGuyAnimation;
+
+    
     // Use this for initialization
     void Start()
     {
@@ -30,13 +34,17 @@ public class BadGuy : MonoBehaviour {
         maxHPBar.maxValue = maxHP;
         maxHPBar.minValue = 0;
 
+        badGuyAnimation = GetComponent<Animation>();
+
+        battle = GameObject.Find("ScriptManager").GetComponent<BattleStatePattern>();
+
         halo = (Behaviour)GetComponent("Halo");
     }
 
     void OnMouseEnter()
     {
         //find the script within player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.Find("Player");
         TargetSelection targetScript = player.GetComponent<TargetSelection>();
         badGuyTargeted = targetScript.targeting;
 
@@ -51,28 +59,19 @@ public class BadGuy : MonoBehaviour {
 
     }
 
-    IEnumerator HaloFlash()
+    public IEnumerator WaitforAnim()
     {
-        halo.enabled = true;
-        yield return new WaitForSeconds(.05f);
-        halo.enabled = false;
-        yield return new WaitForSeconds(.05f);
-
-        halo.enabled = true;
-        yield return new WaitForSeconds(.05f);
-        halo.enabled = false;
-        yield return new WaitForSeconds(.05f);
-
-        halo.enabled = true;
-        yield return new WaitForSeconds(.05f);
-        halo.enabled = false;
-        yield return new WaitForSeconds(.05f);
-
+        Debug.Log("Waiting for badguy Animation");
+        yield return new WaitForSeconds(.42f);
+        finishedFlashing = true;
     }
 
-    public void AttackFlash()
+    public void badGuyAnim()
     {
-        StartCoroutine(HaloFlash());
+        badGuyAnimation.Play();
+        StartCoroutine(WaitforAnim());
+        
+
     }
 
 // Update is called once per frame
@@ -81,6 +80,7 @@ public class BadGuy : MonoBehaviour {
         maxHPBar.value = currentHP;
         if (currentHP < 1)
         {
+            //Play death Animation
             //Destroy(gameObject);
         }
         

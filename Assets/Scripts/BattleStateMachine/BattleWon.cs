@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleWon : MonoBehaviour {
+public class BattleWon : IBattleState
+{
 
     private readonly BattleStatePattern battle;
 
@@ -39,5 +40,10 @@ public class BattleWon : MonoBehaviour {
     public void ToBattleLost()
     {
 
+    }
+
+    public void ToBlankState()
+    {
+        
     }
 }

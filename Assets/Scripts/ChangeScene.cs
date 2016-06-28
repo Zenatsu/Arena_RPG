@@ -6,13 +6,13 @@ public class ChangeScene : MonoBehaviour
 
     //this class handles scene changing
 
-    public void ExitShop()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
     public void EnterShop()
     {
         SceneManager.LoadScene("ShopScene");
+    }
+    public void ExitShop()
+    {
+        SceneManager.LoadScene("MainScene");
     }
     public void EnterTavern()
     {

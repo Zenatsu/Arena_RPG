@@ -26,6 +26,12 @@ public class StartCombat : IBattleState {
         start();
     }
 
+    void start()
+    {
+        spawn.SpawnSystem(battle.spawnGoodGuy, battle.SpawnBadGuy);
+        ToPlayerTurn();
+    }
+
     public void ToStartCombat()
     {
         Debug.Log("Can't transition to same state");
@@ -35,6 +41,8 @@ public class StartCombat : IBattleState {
     {
         battle.currentState = battle.playerTurnState;
         battle.playerTurn = true;
+        battle.heroTurn = true;
+        battle.playerTurnCount = 1;
     }
 
     public void ToEnemyTurn()
@@ -52,20 +60,9 @@ public class StartCombat : IBattleState {
 
     }
 
-    void start()
+    public void ToBlankState()
     {
-        spawn.SpawnSystem(battle.spawnGoodGuy, battle.SpawnBadGuy);
-        
-        /*
-        player = battle.spawnGoodGuy.GetComponent<GoodGuy>();
-        enemy = battle.badGuy.GetComponent<BadGuy>();
-        //spawn player
-        GameObject spawnPlayer = GameObject.Instantiate(player, gPos1, Quaternion.identity) as GameObject;
-        battle.goodGuy = GameObject.FindGameObjectWithTag("Player");
-        //spawn enemy
-        GameObject spawnEnemy = GameObject.Instantiate(enemy, bPos1, Quaternion.identity) as GameObject;
-        //transistion to Player Turn
-        */
-        ToPlayerTurn();
+
     }
+
 }

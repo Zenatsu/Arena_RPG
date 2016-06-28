@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IBattleState
+﻿public interface IBattleState
 {
     //Interface to set up states
 
@@ -16,4 +13,6 @@ public interface IBattleState
     void ToBattleWon();
 
     void ToBattleLost();
+
+    void ToBlankState();
 }

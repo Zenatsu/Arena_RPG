@@ -10,13 +10,21 @@ public class TargetSelection : MonoBehaviour {
     bool targeted = false;
 
     public BattleStatePattern battle;
+    CombatSys combatSys;
+    public GameObject player;
+    public GameObject hero1;
+    public GameObject hero2;
+    GameObject script;
 
     // Use this for initialization
     void Start ()
     {
         _targets = new List<Transform>();
         selectedTarget = null;
-
+        player = GameObject.Find("Player");
+        script = GameObject.Find("ScriptManager");
+        battle = script.GetComponent<BattleStatePattern>();
+        combatSys = script.GetComponent<CombatSys>();
         AddAllEnemies();
 	}
 
@@ -75,30 +83,36 @@ public class TargetSelection : MonoBehaviour {
 
     IEnumerator WaitForAnim()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         battle.hasAttacked = true;
     }
 
     public void ConfirmTarget()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject script = GameObject.Find("ScriptManager");
-        CombatSys combatSys = script.GetComponent<CombatSys>();
 
         if (targeted && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
+
             //access attack system in CombatSys script, and send game object information
-            combatSys.AttackSystem(player, selectedTarget.gameObject);
+            combatSys.AttackSystem(player, selectedTarget.gameObject, true);
 
             print("Target Confirmed, commense damage dealing on target " + selectedTarget + "!");
-
             //switch targeting and targetd off after attack
             targeted = false;
             targeting = false;
             battle = GameObject.Find("ScriptManager").GetComponent<BattleStatePattern>();
-            player.GetComponent<GoodGuy>().AttackAnimation();
+            if(battle.heroTurn)
+                player.GetComponent<GoodGuy>().AttackAnimation();
+            if(battle.hero1Turn)
+                hero1.GetComponent<GoodGuy>().AttackAnimation();
+            if(battle.hero2Turn)
+                hero2.GetComponent<GoodGuy>().AttackAnimation();
             StartCoroutine(WaitForAnim());
+            
             battle.playerTurn = false;
+            battle.heroTurn = false;
+            battle.hero1Turn = false;
+            battle.hero2Turn = false;
             
 
         }
@@ -121,6 +135,11 @@ public class TargetSelection : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (battle.heroCheck.hero1)
+            hero1 = GameObject.Find("Hero1");
+        if (battle.heroCheck.hero2)
+            hero2 = GameObject.Find("Hero2");
+
 
         //Tab Switching
         if (targeting && Input.GetKeyDown(KeyCode.Tab))
@@ -129,7 +148,7 @@ public class TargetSelection : MonoBehaviour {
             print(selectedTarget);
 
         }
-
+        
         if (!targeting)
             DeselectTarget();
 

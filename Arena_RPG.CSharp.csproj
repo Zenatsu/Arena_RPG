@@ -69,20 +69,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BadGuy.cs" />
+    <Compile Include="Assets\Scripts\BadGuy Scripts\BadGuy.cs" />
+    <Compile Include="Assets\Scripts\BadGuy Scripts\BadGuyAttack.cs" />
+    <Compile Include="Assets\Scripts\BadGuy Scripts\BadGuyTarget.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\BattleLost.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\BattleStatePattern.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\BattleWon.cs" />
+    <Compile Include="Assets\Scripts\BattleStateMachine\BlankState.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\EnemyTurn.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\IBattleState.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\PlayerTurn.cs" />
     <Compile Include="Assets\Scripts\BattleStateMachine\StartCombat.cs" />
     <Compile Include="Assets\Scripts\ChangeScene.cs" />
     <Compile Include="Assets\Scripts\CombatSys.cs" />
+    <Compile Include="Assets\Scripts\GameControl.cs" />
     <Compile Include="Assets\Scripts\GoodGuy.cs" />
     <Compile Include="Assets\Scripts\PlayerHealthBar.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\TargetSelection.cs" />
+    <Compile Include="Assets\Scripts\Tavern Script\BuyHeroButtons\CreateBuyButton.cs" />
+    <Compile Include="Assets\Scripts\Tavern Script\HeroCheck.cs" />
+    <Compile Include="Assets\Scripts\Tavern Script\PopUpWindow.cs" />
     <Compile Include="Assets\zSaved for Later Use\ClassSystem.cs" />
     <Compile Include="Assets\zSaved for Later Use\MenuSystem.cs" />
   </ItemGroup>

@@ -8,8 +8,14 @@ public class BattleStatePattern : MonoBehaviour {
     public GameObject badGuy;
     public GameObject spawnGoodGuy;
     public GameObject goodGuy;
+    
+    public GameObject hero1;
+    public GameObject hero2;
+
     GoodGuy player;
     BadGuy enemy;
+    public HeroCheck heroCheck;
+
     public Transform fightButton;
     List<GameObject> _enemyList;
 
@@ -38,27 +44,36 @@ public class BattleStatePattern : MonoBehaviour {
     public BattleWon battleWonState;
     [HideInInspector]
     public BattleLost battleLostState;
+    [HideInInspector]
+    public BlankState blankState;
 
     public bool hasAttacked;
+    public int playerTurnCount = 1;
     public bool playerTurn;
+    public bool heroTurn;
+    public bool hero1Turn;
+    public bool hero2Turn;
+    public bool enemyTurn;
 
     
-    private void Awake ()
+    private void Awake()
     {
         startCombatState = new StartCombat(this);
         playerTurnState = new PlayerTurn(this);
         enemyTurnState = new EnemyTurn(this);
         battleLostState = new BattleLost(this);
         battleWonState = new BattleWon(this);
-
-	}
+        blankState = new BlankState(this);
+        currentState = blankState;
+        
+    }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         player = spawnGoodGuy.GetComponent<GoodGuy>();
         enemy = SpawnBadGuy.GetComponent<BadGuy>();
-        
+        heroCheck = GameObject.Find("GameController").GetComponent<HeroCheck>();
     }
 
     public void OnButtonPressed()
@@ -70,11 +85,15 @@ public class BattleStatePattern : MonoBehaviour {
         fightButton.GetComponentInChildren<Text>().enabled = false;
     }
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
         currentState.UpdateState();
-        goodGuy = GameObject.FindGameObjectWithTag("Player");
+        goodGuy = GameObject.Find("Player");
         badGuy = GameObject.FindGameObjectWithTag("Enemy");
+        if(heroCheck.hero1)
+            hero1 = GameObject.Find("Hero1");
+        if(heroCheck.hero2)
+            hero2 = GameObject.Find("Hero2");
     }
 
 

@@ -4,48 +4,49 @@ using System.Collections;
 
 public class GoodGuy : MonoBehaviour {
 
+    //base stats
+    int bStr = 1;
+    int bInt = 1;
+    int bDex = 1;
+    int bSpd = 1;
+    int bCon = 1;
+
+    //modified stats
+    public int mStr;
+    public int mInt;
+    public int mDex;
+    public int mSpd;
+    public int mCon;
+        
+
     public int attk;
     public int maxHP;
     public int currentHP;
     public float speed;
-    public GameObject player;
-    public Animator playerAttackAnimation;
+    public GameObject thisObject;
 
     public GameObject scriptManager;
     public CombatSys combatScript;
 
     public Animator playerAnimator;
-    public Animation playerAnimation;
 
     // Use this for initialization
     void Start()
     {
-        name = "Player";
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerAttackAnimation = player.GetComponent<Animator>();
-
+        thisObject = gameObject;
         maxHP = 10;
         speed = 50f;
         currentHP = maxHP;
         scriptManager = GameObject.Find("ScriptManager");
         combatScript = scriptManager.GetComponent<CombatSys>();
 
-        playerAnimator = player.GetComponent<Animator>();
+        playerAnimator = thisObject.GetComponent<Animator>();
         playerAnimator.enabled = false;
-
-        playerAnimation = player.GetComponent<Animation>();
     }
-
-    IEnumerator WaitAndPlay(float waitTime, Animator anim)
-    {
-        anim.Play("GoodGuyAttack");
-        yield return new WaitForSeconds(waitTime);
-    }  
 
     public void Clicked()
     {
-        RadialMenuCall();
-        
+        RadialMenuCall();   
     }
     // Update is called once per frame
     void Update()

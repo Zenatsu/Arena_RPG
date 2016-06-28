@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleLost : MonoBehaviour {
+public class BattleLost : IBattleState
+{
 
     private readonly BattleStatePattern battle;
 
@@ -39,5 +40,10 @@ public class BattleLost : MonoBehaviour {
     public void ToBattleLost()
     {
         Debug.Log("Can't transition to same state");
+    }
+
+    public void ToBlankState()
+    {
+
     }
 }

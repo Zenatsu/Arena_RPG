@@ -9,6 +9,7 @@ public class CombatSys : MonoBehaviour {
 
     public GameObject badGuy;
     public GameObject goodGuy;
+    public BattleStatePattern battle;
     GoodGuy player;
     BadGuy enemy;
     public Transform fightButton;
@@ -31,6 +32,7 @@ public class CombatSys : MonoBehaviour {
     void start ()
     {
         _enemyList = new List<GameObject>();
+        battle = GetComponent<BattleStatePattern>();
       
     }
 	
@@ -49,18 +51,30 @@ public class CombatSys : MonoBehaviour {
     }
 
     //recieves game object information from TargetSelection script and handles damage.
-    public void AttackSystem(GameObject attacker, GameObject defender)
+    public void AttackSystem(GameObject gg, GameObject bg, bool ggAttack = false, bool bgAttack = false)
     {
-        GoodGuy attackerScript = attacker.GetComponent<GoodGuy>();
-        BadGuy defenderScript = defender.GetComponent<BadGuy>();
+        //Grab scrips from objects
+        GoodGuy ggScript = gg.GetComponent<GoodGuy>();
+        BadGuy bgScript = bg.GetComponent<BadGuy>();
 
-        defenderScript.currentHP -= attackerScript.attk;
-        
+        if(ggAttack)
+        {
+            
+            bgScript.currentHP -= ggScript.attk;
+        }
+            
+
+        if (bgAttack)
+        {
+            ggScript.currentHP -= bgScript.attk;
+            
+        }
+            
     }
 
     public void AnimationSystem()
     {
-        GoodGuy playerAniamtion = GameObject.FindGameObjectWithTag("Player").GetComponent<GoodGuy>();
+        GoodGuy playerAniamtion = GameObject.Find("Player").GetComponent<GoodGuy>();
         playerAniamtion.AttackAnimation();
         
     }
