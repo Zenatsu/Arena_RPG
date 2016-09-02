@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GoodGuy : MonoBehaviour {
+public class GoodGuy : MonoBehaviour
+{
 
     //base stats
     int bStr = 1;
@@ -17,15 +18,21 @@ public class GoodGuy : MonoBehaviour {
     public int mDex;
     public int mSpd;
     public int mCon;
-        
 
     public int attk;
     public int maxHP;
     public int currentHP;
     public float speed;
+
+    public int level;
+    public int currentExp;
+    public int expToLevel;
     public GameObject thisObject;
 
+    public GameControl badGuy;
+
     public GameObject scriptManager;
+    public TargetSelection targetScript;
     public CombatSys combatScript;
 
     public Animator playerAnimator;
@@ -34,24 +41,36 @@ public class GoodGuy : MonoBehaviour {
     void Start()
     {
         thisObject = gameObject;
+        level = 1;
+        expToLevel = 100;
         maxHP = 10;
         speed = 50f;
         currentHP = maxHP;
         scriptManager = GameObject.Find("ScriptManager");
         combatScript = scriptManager.GetComponent<CombatSys>();
+        targetScript = scriptManager.GetComponent<TargetSelection>();
+
+        
 
         playerAnimator = thisObject.GetComponent<Animator>();
         playerAnimator.enabled = false;
     }
 
+    public void AniEventCall()
+    {
+
+        Debug.Log("Called from animation");
+
+        combatScript.AttackSystem(gameObject, GameObject.Find("BadGuy")/*find way to push proper gameobject*/, true, false);
+    }
+
     public void Clicked()
     {
-        RadialMenuCall();   
+        RadialMenuCall();
     }
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void RadialMenuCall()

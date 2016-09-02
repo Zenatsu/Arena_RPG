@@ -5,14 +5,14 @@ public class BadGuyAttack : MonoBehaviour {
 
     CombatSys combatSys;
     GameObject goodGuy;
-    GameObject badGuy;
+    GameObject thisObject;
     public BattleStatePattern battle;
 
     void Start()
     {
         combatSys = GameObject.Find("ScriptManager").GetComponent<CombatSys>();
         goodGuy = GameObject.Find("Player");
-        badGuy = GameObject.FindGameObjectWithTag("Enemy");
+        thisObject = gameObject;
         battle = GameObject.Find("ScriptManager").GetComponent<BattleStatePattern>();
     }
 
@@ -25,7 +25,7 @@ public class BadGuyAttack : MonoBehaviour {
     public void AttackPlayer()
     {
         battle.hasAttacked = true;
-        combatSys.AttackSystem(goodGuy, badGuy, false, true);
+        combatSys.AttackSystem(goodGuy, thisObject, false, true);
     }
 
     

@@ -7,7 +7,7 @@ public class TargetSelection : MonoBehaviour {
     List<Transform> _targets;
     public Transform selectedTarget;
     public bool targeting = false;
-    bool targeted = false;
+    public bool targeted = false;
 
     public BattleStatePattern battle;
     CombatSys combatSys;
@@ -15,6 +15,7 @@ public class TargetSelection : MonoBehaviour {
     public GameObject hero1;
     public GameObject hero2;
     GameObject script;
+
 
     // Use this for initialization
     void Start ()
@@ -80,11 +81,17 @@ public class TargetSelection : MonoBehaviour {
         selectedTarget = null;
 
     }
+    public void AniAttackTarget()
+    {
 
+        Debug.Log("Called From Animation " + System.Environment.NewLine + "attacking: " + selectedTarget);
+        //access attack system in CombatSys script, and send game object information
+        combatSys.AttackSystem(player, selectedTarget.gameObject, true);
+
+    }
     IEnumerator WaitForAnim()
     {
         yield return new WaitForSeconds(1.5f);
-        battle.hasAttacked = true;
     }
 
     public void ConfirmTarget()
@@ -92,11 +99,6 @@ public class TargetSelection : MonoBehaviour {
 
         if (targeted && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
-
-            //access attack system in CombatSys script, and send game object information
-            combatSys.AttackSystem(player, selectedTarget.gameObject, true);
-
-            print("Target Confirmed, commense damage dealing on target " + selectedTarget + "!");
             //switch targeting and targetd off after attack
             targeted = false;
             targeting = false;
@@ -113,12 +115,12 @@ public class TargetSelection : MonoBehaviour {
             battle.heroTurn = false;
             battle.hero1Turn = false;
             battle.hero2Turn = false;
-            
 
-        }
-            
-            
+        }   
+                        
     }
+
+
 
     public void OnAttackClick()
     {
@@ -143,15 +145,8 @@ public class TargetSelection : MonoBehaviour {
 
         //Tab Switching
         if (targeting && Input.GetKeyDown(KeyCode.Tab))
-        {
             TargetEnemy();
-            print(selectedTarget);
-
-        }
         
-        if (!targeting)
-            DeselectTarget();
-
         //Mouse Selecting
         if (targeting && Input.GetMouseButtonDown(0))
         {
@@ -163,13 +158,12 @@ public class TargetSelection : MonoBehaviour {
 
             foreach (RaycastHit2D hit in hits)//when something is hit
             {
-                DeselectTarget();
-                selectedTarget = hit.transform;
-                SelectTarget();
+                DeselectTarget(); //Deselect previous target
+                selectedTarget = hit.transform; //grab hit object
+                SelectTarget(); // select target
                 gotTarget = true;
                 targeted = true;
-
-
+                break;
             }
 
             if (!gotTarget) //if nothing was clicked deselect
@@ -177,10 +171,10 @@ public class TargetSelection : MonoBehaviour {
                 gotTarget = false;
                 DeselectTarget();
                 targeted = false;
+
             }
 
         }
-
         if (targeted)
             ConfirmTarget();
     }

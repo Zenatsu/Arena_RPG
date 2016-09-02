@@ -5,7 +5,11 @@ public class ChangeScene : MonoBehaviour
 {
 
     //this class handles scene changing
-
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SceneManager.LoadScene("ArenaScene");
+    }
     public void EnterShop()
     {
         SceneManager.LoadScene("ShopScene");

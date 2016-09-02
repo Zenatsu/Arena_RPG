@@ -5,7 +5,6 @@ public class HeroCheck : MonoBehaviour {
 
     public bool hero1;
     public bool hero2;
-    public bool hero3;
 
 
 	// Use this for initialization
@@ -26,12 +25,6 @@ public class HeroCheck : MonoBehaviour {
     {
         //add function to subtract gold
         hero2 = true;
-    }
-
-    public void BuyHero3()
-    {
-        //add function to subtract gold
-        hero3 = true;
     }
 
     // Update is called once per frame

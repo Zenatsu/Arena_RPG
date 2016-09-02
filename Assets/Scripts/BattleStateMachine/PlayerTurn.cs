@@ -77,11 +77,21 @@ public class PlayerTurn : IBattleState
         Debug.Log("Player has attacked, going to enemy turn");
         battle.hasAttacked = false;
         battle.currentState = battle.enemyTurnState;
-        battle.enemyTurn = true;
         if (battle.playerTurnCount == 3)
             battle.playerTurnCount = 1;
         else if (battle.heroCheck.hero1 || battle.heroCheck.hero2)
             battle.playerTurnCount++;
+
+        if (battle.enemyTurnCount == 1)
+            battle.enemy1Turn = true;
+        if (battle.enemyTurnCount == 2)
+            battle.enemy2Turn = true;
+        if (battle.enemyTurnCount == 3)
+            battle.enemy3Turn = true;
+
+        battle.enemyTurn = true;
+
+
 
         Debug.Log("Player Turn Count: " + battle.playerTurnCount);
     }

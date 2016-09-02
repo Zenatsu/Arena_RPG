@@ -27,7 +27,6 @@ public class BadGuy : MonoBehaviour {
     void Start()
     {
         currentHP = maxHP;
-        name = "BadGuy";
         Color randColor = new Color(Random.value, Random.value, Random.value, 1.0f);
         GetComponent<SpriteRenderer>().color = randColor;
         maxHPBar = prefab.GetComponentInChildren<Slider>();
