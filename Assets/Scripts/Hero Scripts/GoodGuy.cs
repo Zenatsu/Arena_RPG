@@ -4,21 +4,6 @@ using System.Collections;
 
 public class GoodGuy : MonoBehaviour {
 
-    //base stats
-    int bStr = 1;
-    int bInt = 1;
-    int bDex = 1;
-    int bSpd = 1;
-    int bCon = 1;
-
-    //modified stats
-    public int mStr;
-    public int mInt;
-    public int mDex;
-    public int mSpd;
-    public int mCon;
-        
-
     public int attk;
     public int maxHP;
     public int currentHP;
@@ -42,6 +27,7 @@ public class GoodGuy : MonoBehaviour {
 
         playerAnimator = thisObject.GetComponent<Animator>();
         playerAnimator.enabled = false;
+
     }
 
     public void Clicked()
