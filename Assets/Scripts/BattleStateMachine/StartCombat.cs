@@ -28,7 +28,7 @@ public class StartCombat : IBattleState {
 
     void start()
     {
-        spawn.SpawnSystem(battle.spawnGoodGuy, battle.SpawnBadGuy);
+
         ToPlayerTurn();
     }
 

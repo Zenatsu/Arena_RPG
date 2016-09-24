@@ -77,10 +77,17 @@
     <Compile Include="Assets\Scripts\CombatSys.cs" />
     <Compile Include="Assets\Scripts\DictionaryExample.cs" />
     <Compile Include="Assets\Scripts\GameControl.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\Scripts\GoodGuy.cs" />
+    <Compile Include="Assets\Scripts\Leveling System\GlobalModifiers.cs" />
+    <Compile Include="Assets\Scripts\MissionScript.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealthBar.cs" />
+=======
     <Compile Include="Assets\Scripts\GlobalStats.cs" />
     <Compile Include="Assets\Scripts\Hero Scripts\GoodGuy.cs" />
     <Compile Include="Assets\Scripts\Hero Scripts\PlayerHealthBar.cs" />
     <Compile Include="Assets\Scripts\Hero Scripts\TargetSelection.cs" />
+>>>>>>> origin/ArenaDevBranch
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Tavern Script\BuyHeroButtons\CreateBuyButton.cs" />
     <Compile Include="Assets\Scripts\Tavern Script\HeroCheck.cs" />

@@ -20,6 +20,6 @@ public class PlayerHealthBar : MonoBehaviour {
     {
 
         HPBar.value = playerScript.currentHP;
-        
+                
     }
 }
