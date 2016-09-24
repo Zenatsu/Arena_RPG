@@ -2,4 +2,4 @@
 RPG Arena Combat Game
 
 # Contributors
-  Zenatsu - Codeing
+  Zenatsu - Coding
