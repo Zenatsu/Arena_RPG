@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Collections;
 
+<<<<<<< HEAD
 public class Spawner : MonoBehaviour
 {
+=======
+
+public class Spawner : MonoBehaviour {
+>>>>>>> origin/ArenaDevBranch
 
     public GameObject badGuy;
     public GameObject badGuy2;

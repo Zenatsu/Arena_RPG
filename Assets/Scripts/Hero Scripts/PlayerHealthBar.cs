@@ -14,7 +14,7 @@ public class PlayerHealthBar : MonoBehaviour {
         HPBar.maxValue = playerScript.maxHP;
 
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
