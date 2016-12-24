@@ -19,12 +19,10 @@ public class CreateBuyButton : MonoBehaviour {
 	
     void OnGUI()
     {
-        if (GUI.Button(new Rect(120, 310, 160, 30), "Buy Hero 1"))
+        if (GUI.Button(new Rect(460, 310, 160, 30), "Buy Hero 1"))
             control.GetComponent<HeroCheck>().BuyHero1();
-        if (GUI.Button(new Rect(620, 310, 160, 30), "Buy Hero 2"))
+        if (GUI.Button(new Rect(840, 310, 160, 30), "Buy Hero 2"))
             control.GetComponent<HeroCheck>().BuyHero2();
-        if (GUI.Button(new Rect(1120, 310, 160, 30), "Buy Hero 3"))
-            control.GetComponent<HeroCheck>().BuyHero3();
     }
 
 	// Update is called once per frame

@@ -61,13 +61,14 @@ public class CombatSys : MonoBehaviour {
         {
             
             bgScript.currentHP -= ggScript.attk;
+            battle.hasAttacked = true;
         }
             
 
         if (bgAttack)
         {
             ggScript.currentHP -= bgScript.attk;
-            
+            battle.hasAttacked = true;
         }
             
     }

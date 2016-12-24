@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Collections;
 
-public class BadGuyTarget : MonoBehaviour {
+public class BadGuyTarget : MonoBehaviour
+{
 
-    List<Transform> _targets;
+    public List<Transform> _targets;
     public Transform selectedTarget;
 
+    public GameObject ScriptManager;
+    public CombatSys combat;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
+        ScriptManager = GameObject.Find("ScriptManager");
+        combat = ScriptManager.GetComponent<CombatSys>();
         _targets = new List<Transform>();
         selectedTarget = null;
         AddAllTargets();
-	}
+    }
 
-    void AddAllTargets()
+    private void AddAllTargets()
     {
         GameObject[] _targetList = GameObject.FindGameObjectsWithTag("Hero");
 
@@ -31,30 +36,20 @@ public class BadGuyTarget : MonoBehaviour {
 
     void TargetHero()
     {
-        if(selectedTarget == null)
-        {
-            selectedTarget = _targets[0];
-        }
-        else
-        {
-            int index = _targets.IndexOf(selectedTarget);
-            if (index < _targets.Count - 1)
-                index++;
-            else
-                index = 0;
+        selectedTarget = _targets[Mathf.FloorToInt(Random.Range(0, _targets.Count + 1))];
 
-            selectedTarget = _targets[index];
-        }
-
-        SelectTarget();
+        combat.AttackSystem(selectedTarget.gameObject, gameObject, false, true);
     }
 
-    void SelectTarget()
+    public void SelectTarget()
     {
-        print("I choose to attack: "+selectedTarget);
+        TargetHero();
     }
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
+
+

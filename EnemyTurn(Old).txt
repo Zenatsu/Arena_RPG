@@ -1,0 +1,161 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+
+public class EnemyTurn : IBattleState
+{
+    private readonly BattleStatePattern battle;
+    BadGuy badGuy;
+    BadGuy badGuy2;
+    BadGuy badGuy3;
+    BadGuyAttack badGuyAttack;
+
+    int caseSwitch;
+
+    public EnemyTurn (BattleStatePattern battleStatePattern)
+    {
+        battle = battleStatePattern;
+
+    }
+
+    public void UpdateState()
+    {
+        Start();
+
+    }
+    
+    public void Start()
+    {
+        badGuy = battle.badGuy.GetComponent<BadGuy>();
+        if (GameObject.Find("BadGuy2"))
+            badGuy2 = battle.badGuy2.GetComponent<BadGuy>();
+        if (GameObject.Find("BadGuy3"))
+            badGuy3 = battle.badGuy3.GetComponent<BadGuy>();
+        badGuyAttack = battle.badGuy.GetComponent<BadGuyAttack>();
+
+        if (battle.enemyTurnCount == 1)
+        {
+            badGuy.badGuyAnim();
+            battle.enemyTurn = false;
+        }
+        
+        if (battle.enemyTurnCount == 2)
+        {
+            badGuy2.badGuyAnim();
+            battle.enemyTurn = false;
+        }
+
+        if (battle.enemyTurnCount == 3)
+        {
+            badGuy3.badGuyAnim();
+            battle.enemyTurn = false;
+        }
+
+        if (badGuy.finishedFlashing == true)
+            AttackPlayer();
+        if (badGuy2.finishedFlashing == true)
+            AttackPlayer();
+        if (badGuy3.finishedFlashing == true)
+            AttackPlayer();
+    }
+    public void AttackPlayer() //make a way to have badguys send their attack value
+    {
+        caseSwitch = Random.Range(Mathf.RoundToInt(1f), Mathf.RoundToInt(3f));
+        switch (caseSwitch)
+        {
+            case 1:
+                Debug.Log("Using Basic Attack");
+                badGuyAttack.AttackPlayer();
+                if (battle.hasAttacked)
+                {
+                    
+                    //Check if player is dead
+                    if (battle.goodGuy.GetComponent<GoodGuy>().currentHP <= 0)
+                        ToBattleLost();
+                    else
+                    {
+                        
+                    }
+                        ToPlayerTurn();
+                }
+
+                break;
+            case 2:
+                Debug.Log("Using Ability 1");
+                badGuyAttack.AttackPlayer();
+                if (battle.hasAttacked)
+                {
+                    //Check if player is dead
+                    if (battle.goodGuy.GetComponent<GoodGuy>().currentHP <= 0)
+                        ToBattleLost();
+                    else
+                        ToPlayerTurn();
+                }
+                break;
+            default:
+                Debug.Log("Default Attack Case");
+                badGuyAttack.AttackPlayer();
+                if (battle.hasAttacked)
+                {
+                    //Check if player is dead
+                    if (battle.goodGuy.GetComponent<GoodGuy>().currentHP <= 0)
+                        ToBattleLost();
+                    else
+                        ToPlayerTurn();
+                }
+                break;
+        }
+        
+    }
+
+    public void ToStartCombat()
+    {
+
+    }
+
+    public void ToPlayerTurn()
+    {
+        Debug.Log("Going to Player Turn");
+        badGuy.finishedFlashing = false;
+        battle.hasAttacked = false;
+        battle.playerTurn = true;
+
+        if (battle.enemyTurnCount == 3)
+            battle.enemyTurnCount = 1;
+        else if (badGuy2 != null || badGuy3 != null)
+            battle.playerTurnCount++;
+
+        if (battle.playerTurnCount == 1)
+            battle.heroTurn = true;
+        if (battle.playerTurnCount == 2)
+            battle.hero1Turn = true;
+        if (battle.playerTurnCount == 3)
+            battle.hero2Turn = true;
+
+        battle.enemyTurnCount++;
+
+        battle.currentState = battle.playerTurnState;
+    }
+
+    public void ToEnemyTurn()
+    {
+        Debug.Log("Can't transition to same state");
+    }
+
+    public void ToBattleWon()
+    {
+
+    }
+
+    public void ToBattleLost()
+    {
+        Debug.Log("Going to Battle Lost");
+    }
+
+    public void ToBlankState()
+    {
+
+    }
+
+}
